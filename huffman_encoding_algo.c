@@ -2,5 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_CHARS 256
-#define MAX_CODE_LEN 512
+#define MAX_CHARS 200
+#define MAX_CODE_LEN 510
+
