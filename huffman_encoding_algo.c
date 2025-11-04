@@ -76,3 +76,18 @@ void insertMinHeap(MinHeap* minHeap, node* minHeapNode) {
     }
     minHeap->array[i] = minHeapNode;
 }
+
+void buildMinHeap(MinHeap* minHeap) {
+    int n = minHeap->size - 1;
+    for (int i = (n - 1) / 2; i >= 0; i--)
+        minHeapify(minHeap, i);
+}
+
+MinHeap* createAndBuildMinHeap(char data[], int freq[], int size) {
+    MinHeap* minHeap = createMinHeap(size);
+    for (int i = 0; i < size; ++i)
+        minHeap->array[i] = newNode(data[i], freq[i]);
+    minHeap->size = size;
+    buildMinHeap(minHeap);
+    return minHeap;
+}
