@@ -145,7 +145,7 @@ void decodeString(node* root, char* encodedStr) {
 
 void HuffmanCodes(char data[], int freq[], int size) {
     node* root = buildHuffmanTree(data, freq, size);
-    int arr[MAX_TREE_HT], top = 0;
+    int arr[MAX], top = 0;
 
     printf("\nHuffman Codes:\n");
     printCodes(root, arr, top);
@@ -156,4 +156,24 @@ void HuffmanCodes(char data[], int freq[], int size) {
     scanf("%s", encodedStr);
 
     decodeString(root, encodedStr);
+}
+
+int main() {
+    int n;
+    printf("Enter number of unique characters: ");
+    scanf("%d", &n);
+
+    char data[n];
+    int freq[n];
+
+    printf("Enter characters:\n");
+    for (int i = 0; i < n; i++)
+        scanf(" %c", &data[i]);
+
+    printf("Enter frequencies of respective characters:\n");
+    for (int i = 0; i < n; i++)
+        scanf("%d", &freq[i]);
+
+    HuffmanCodes(data, freq, n);
+    return 0;
 }
