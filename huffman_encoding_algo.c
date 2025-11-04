@@ -91,3 +91,38 @@ MinHeap* createAndBuildMinHeap(char data[], int freq[], int size) {
     buildMinHeap(minHeap);
     return minHeap;
 }
+node* buildHuffmanTree(char data[], int freq[], int size) {
+    node *left, *right, *top;
+
+    MinHeap* minHeap = createAndBuildMinHeap(data, freq, size);
+
+    while (!isSizeOne(minHeap)) {
+        left = extractMin(minHeap);
+        right = extractMin(minHeap);
+
+        top = newNode('$', left->freq + right->freq);
+        top->left = left;
+        top->right = right;
+
+        insertMinHeap(minHeap, top);
+    }
+
+    return extractMin(minHeap);
+}
+
+void printCodes(node* root, int arr[], int top) {
+    if (root->left) {
+        arr[top] = 0;
+        printCodes(root->left, arr, top + 1);
+    }
+    if (root->right) {
+        arr[top] = 1;
+        printCodes(root->right, arr, top + 1);
+    }
+    if (!(root->left) && !(root->right)) {
+        printf("%c: ", root->data);
+        for (int i = 0; i < top; i++)
+            printf("%d", arr[i]);
+        printf("\n");
+    }
+}
