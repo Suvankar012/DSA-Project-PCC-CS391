@@ -67,23 +67,23 @@ node* extractMin(MinHeap* minHeap){
     return temp;
 }
 
-void insertMinHeap(MinHeap* minHeap, node* minHeapNode) {
+void insertMinHeap(MinHeap* minHeap, node* minHeapNode){
     ++minHeap->size;
     int i = minHeap->size - 1;
-    while (i && minHeapNode->freq < minHeap->array[(i - 1) / 2]->freq) {
+    while (i && minHeapNode->freq < minHeap->array[(i - 1) / 2]->freq){
         minHeap->array[i] = minHeap->array[(i - 1) / 2];
         i = (i - 1) / 2;
     }
     minHeap->array[i] = minHeapNode;
 }
 
-void buildMinHeap(MinHeap* minHeap) {
+void buildMinHeap(MinHeap* minHeap){
     int n = minHeap->size - 1;
     for (int i = (n - 1) / 2; i >= 0; i--)
         minHeapify(minHeap, i);
 }
 
-MinHeap* createAndBuildMinHeap(char data[], int freq[], int size) {
+MinHeap* createAndBuildMinHeap(char data[], int freq[], int size){
     MinHeap* minHeap = createMinHeap(size);
     for (int i = 0; i < size; ++i)
         minHeap->array[i] = newNode(data[i], freq[i]);
@@ -91,12 +91,12 @@ MinHeap* createAndBuildMinHeap(char data[], int freq[], int size) {
     buildMinHeap(minHeap);
     return minHeap;
 }
-node* buildHuffmanTree(char data[], int freq[], int size) {
+node* buildHuffmanTree(char data[], int freq[], int size){
     node *left, *right, *top;
 
     MinHeap* minHeap = createAndBuildMinHeap(data, freq, size);
 
-    while (!isSizeOne(minHeap)) {
+    while (!isSizeOne(minHeap)){
         left = extractMin(minHeap);
         right = extractMin(minHeap);
 
@@ -110,32 +110,32 @@ node* buildHuffmanTree(char data[], int freq[], int size) {
     return extractMin(minHeap);
 }
 
-void printCodes(node* root, int arr[], int top) {
-    if (root->left) {
+void printCodes(node* root, int arr[], int top){
+    if (root->left){
         arr[top] = 0;
         printCodes(root->left, arr, top + 1);
     }
-    if (root->right) {
+    if (root->right){
         arr[top] = 1;
         printCodes(root->right, arr, top + 1);
     }
-    if (!(root->left) && !(root->right)) {
+    if (!(root->left) && !(root->right)){
         printf("%c: ", root->data);
         for (int i = 0; i < top; i++)
             printf("%d", arr[i]);
         printf("\n");
     }
 }
-void decodeString(node* root, char* encodedStr) {
+void decodeString(node* root, char* encodedStr){
     node* current = root;
     printf("\nDecoded string: ");
-    for (int i = 0; encodedStr[i] != '\0'; i++) {
+    for (int i = 0; encodedStr[i] != '\0'; i++){
         if (encodedStr[i] == '0')
             current = current->left;
         else
             current = current->right;
 
-        if (!current->left && !current->right) {
+        if (!current->left && !current->right){
             printf("%c", current->data);
             current = root;
         }
@@ -143,16 +143,15 @@ void decodeString(node* root, char* encodedStr) {
     printf("\n");
 }
 
-void HuffmanCodes(char data[], int freq[], int size) {
+void HuffmanCodes(char data[], int freq[], int size){
     node* root = buildHuffmanTree(data, freq, size);
     int arr[MAX], top = 0;
 
     printf("\nHuffman Codes:\n");
     printCodes(root, arr, top);
 
-    // Example encoded string for testing decode
     char encodedStr[100];
-    printf("\nEnter encoded string (e.g., 010011...): ");
+    printf("\nEnter encoded string (e.g.- 010011...): ");
     scanf("%s", encodedStr);
 
     decodeString(root, encodedStr);
