@@ -157,6 +157,7 @@ void HuffmanCodes(char data[], int freq[], int size){
     decodeString(root, encodedStr);
 }
 
+
 int main() {
     int n;
     printf("Enter number of unique characters: ");
@@ -176,3 +177,4 @@ int main() {
     HuffmanCodes(data, freq, n);
     return 0;
 }
+
