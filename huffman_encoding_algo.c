@@ -38,3 +38,32 @@ void swapMinHeapNode(node** a, node** b){
     *b = t;
 }
 
+void minHeapify(MinHeap* minHeap, int idx){
+    int smallest = idx;
+    int left = 2 * idx + 1;
+    int right = 2 * idx + 2;
+
+    if (left < (int)minHeap->size && minHeap->array[left]->freq < minHeap->array[smallest]->freq)
+        smallest = left;
+
+    if (right < (int)minHeap->size && minHeap->array[right]->freq < minHeap->array[smallest]->freq)
+        smallest = right;
+
+    if (smallest != idx) {
+        swapMinHeapNode(&minHeap->array[smallest], &minHeap->array[idx]);
+        minHeapify(minHeap, smallest);
+    }
+}
+
+int isSizeOne(MinHeap* minHeap){
+    return (minHeap->size == 1);
+}
+
+node* extractMin(MinHeap* minHeap){
+    node* temp = minHeap->array[0];
+    minHeap->array[0] = minHeap->array[minHeap->size - 1];
+    --minHeap->size;
+    minHeapify(minHeap, 0);
+    return temp;
+}
+
