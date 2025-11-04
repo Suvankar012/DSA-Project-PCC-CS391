@@ -126,3 +126,34 @@ void printCodes(node* root, int arr[], int top) {
         printf("\n");
     }
 }
+void decodeString(node* root, char* encodedStr) {
+    node* current = root;
+    printf("\nDecoded string: ");
+    for (int i = 0; encodedStr[i] != '\0'; i++) {
+        if (encodedStr[i] == '0')
+            current = current->left;
+        else
+            current = current->right;
+
+        if (!current->left && !current->right) {
+            printf("%c", current->data);
+            current = root;
+        }
+    }
+    printf("\n");
+}
+
+void HuffmanCodes(char data[], int freq[], int size) {
+    node* root = buildHuffmanTree(data, freq, size);
+    int arr[MAX_TREE_HT], top = 0;
+
+    printf("\nHuffman Codes:\n");
+    printCodes(root, arr, top);
+
+    // Example encoded string for testing decode
+    char encodedStr[100];
+    printf("\nEnter encoded string (e.g., 010011...): ");
+    scanf("%s", encodedStr);
+
+    decodeString(root, encodedStr);
+}
